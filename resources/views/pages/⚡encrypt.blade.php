@@ -131,6 +131,7 @@ new #[Title('Encrypt & Hash')] class extends Component {
                 <flux:table.column>Category</flux:table.column>
                 <flux:table.column>Algorithm</flux:table.column>
                 <flux:table.column>Output</flux:table.column>
+                <flux:table.column class="w-16"></flux:table.column>
             </flux:table.columns>
 
             <flux:table.rows>
@@ -148,6 +149,29 @@ new #[Title('Encrypt & Hash')] class extends Component {
                         <flux:table.cell variant="strong">{{ $result['algorithm'] }}</flux:table.cell>
                         <flux:table.cell class="max-w-md">
                             <span class="block truncate font-mono text-xs">{{ $result['output'] }}</span>
+                        </flux:table.cell>
+                        <flux:table.cell>
+                            <div x-data="{ copied: false }">
+                                <flux:button
+                                    size="xs"
+                                    variant="ghost"
+                                    icon="clipboard"
+                                    x-show="!copied"
+                                    x-on:click="
+                                        navigator.clipboard.writeText(@js($result['output']));
+                                        copied = true;
+                                        setTimeout(() => copied = false, 2000);
+                                    "
+                                />
+                                <flux:button
+                                    size="xs"
+                                    variant="ghost"
+                                    icon="check"
+                                    x-cloak
+                                    x-show="copied"
+                                    class="!text-green-500"
+                                />
+                            </div>
                         </flux:table.cell>
                     </flux:table.row>
                 @endforeach
