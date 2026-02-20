@@ -151,27 +151,27 @@ new #[Title('Encrypt & Hash')] class extends Component {
                             <span class="block truncate font-mono text-xs">{{ $result['output'] }}</span>
                         </flux:table.cell>
                         <flux:table.cell>
-                            <div x-data="{ copied: false }">
-                                <flux:button
-                                    size="xs"
-                                    variant="ghost"
-                                    icon="clipboard"
-                                    x-show="!copied"
-                                    x-on:click="
-                                        navigator.clipboard.writeText(@js($result['output']));
-                                        copied = true;
-                                        setTimeout(() => copied = false, 2000);
-                                    "
-                                />
-                                <flux:button
-                                    size="xs"
-                                    variant="ghost"
-                                    icon="check"
-                                    x-cloak
-                                    x-show="copied"
-                                    class="!text-green-500"
-                                />
-                            </div>
+                            <button
+                                type="button"
+                                x-data="{ copied: false }"
+                                data-copy="{{ $result['output'] }}"
+                                x-on:click="
+                                    const textarea = document.createElement('textarea');
+                                    textarea.value = $el.dataset.copy;
+                                    textarea.style.position = 'fixed';
+                                    textarea.style.opacity = '0';
+                                    document.body.appendChild(textarea);
+                                    textarea.select();
+                                    document.execCommand('copy');
+                                    document.body.removeChild(textarea);
+                                    copied = true;
+                                    setTimeout(() => copied = false, 2000);
+                                "
+                                class="inline-flex items-center justify-center rounded-md p-1.5 text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 dark:hover:text-zinc-200 dark:hover:bg-zinc-700 transition"
+                            >
+                                <flux:icon.clipboard-document x-show="!copied" class="size-4" />
+                                <flux:icon.check x-cloak x-show="copied" class="size-4 text-green-500" />
+                            </button>
                         </flux:table.cell>
                     </flux:table.row>
                 @endforeach
