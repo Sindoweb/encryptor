@@ -114,7 +114,7 @@ new #[Title('Encrypt & Hash')] class extends Component {
 <div class="mx-auto max-w-5xl px-4 py-12">
     <div class="mb-8">
         <flux:heading size="xl">Encrypt & Hash</flux:heading>
-        <flux:text class="mt-2">Enter text below and see it encrypted, hashed, and encoded using every available PHP algorithm.</flux:text>
+        <flux:text class="mt-2">Enter text below and see it encrypted, hashed, and encoded using every available PHP algorithm. Your input is not stored or logged in any way.</flux:text>
     </div>
 
     <form wire:submit="encrypt" class="mb-8 flex items-end gap-4">
